@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  vault:
+    image: vault:1.9.3
+    hostname: vault
+    ports:
+     - 8200:8200
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - ./config:/vault/config
+      - ./file:/vault/file
+      - ./logs:/vault/logs
+    restart: unless-stopped
+    command: server #removes starting in dev mode
+
+networks:
+   skynet:
+      driver: bridge
